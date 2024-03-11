@@ -10,9 +10,8 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 	mySetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
+export default class HelloWorldPlugin extends Plugin {
 	settings: MyPluginSettings;
-
 	async onload() {
 		await this.loadSettings();
 
@@ -76,6 +75,10 @@ export default class MyPlugin extends Plugin {
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+	
+		this.addRibbonIcon('dice', 'Greet', () => {
+			new Notice('Hello, world!');
+		  });
 	}
 
 	onunload() {
@@ -108,9 +111,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: HelloWorldPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: HelloWorldPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
